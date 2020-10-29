@@ -1,0 +1,26 @@
+<!--
+Страница выводит таблицу сведений о продукте в подписанных ячейках.
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>Id</td>
+        <td th:text="${product.id}">Id</td>
+    </tr>
+    <tr>
+        <td>Title</td>
+        <td th:text="${product.title}">Title</td>
+    </tr>
+    <tr>
+        <td>Cost</td>
+        <td th:text="${product.cost}">Cost</td>
+    </tr>
+</table>
+</body>
+</html>
