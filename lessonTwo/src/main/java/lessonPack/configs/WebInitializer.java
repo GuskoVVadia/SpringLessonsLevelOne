@@ -18,7 +18,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
      * Определяем массив классов конфигурации
      */
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{AppConfig.class};
+        return new Class[]{AppConfig.class, SpringDataConfig.class};
     }
 
     @Override

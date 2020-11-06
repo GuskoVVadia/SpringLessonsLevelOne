@@ -1,24 +1,24 @@
-/**
- * Класс инкапсулирует информацию о продукте.
- * Создан по ТЗ (заданию из методички)
- */
 package lessonPack.domain;
 
-import java.util.Objects;
 
-public class Product {
+import javax.persistence.*;
 
+@Entity
+@Table(name="products_tbl")
+public class Product{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_fld_id")
     private Long id;
+
+    @Column(name = "product_fld_title")
     private String title;
+
+    @Column(name = "product_fld_cost")
     private Double cost;
 
     public Product() {
-    }
-
-    public Product(Long id, String title, Double cost) {
-        this.id = id;
-        this.title = title;
-        this.cost = cost;
     }
 
     public Long getId() {
@@ -43,29 +43,5 @@ public class Product {
 
     public void setCost(Double cost) {
         this.cost = cost;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return id.equals(product.id) &&
-                title.equals(product.title) &&
-                cost.equals(product.cost);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, cost);
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", cost=" + cost +
-                '}';
     }
 }
