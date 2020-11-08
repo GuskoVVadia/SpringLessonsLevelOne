@@ -13,11 +13,14 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService{
+
+    @Autowired
     private ProductJpaDAO productJpaDAO;
 
-    public ProductServiceImpl(ProductJpaDAO productJpaDAO) {
-        this.productJpaDAO = productJpaDAO;
-        init();
+    @Override
+    public Product addProduct(Product product) {
+        Product saveProduct = productJpaDAO.saveAndFlush(product);
+        return saveProduct;
     }
 
     @Override
@@ -46,18 +49,5 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     public List<Product> sortByMinAll(){
         return this.productJpaDAO.findAll();
-    }
-
-    @Transactional
-    public void init(){
-        Product product = new Product();
-        product.setCost(50.2);
-        product.setTitle("mil");
-        productJpaDAO.save(product);
-
-        Product product1 = new Product();
-        product1.setTitle("bread");
-        product1.setCost(22.0);
-        productJpaDAO.save(product1);
     }
 }
