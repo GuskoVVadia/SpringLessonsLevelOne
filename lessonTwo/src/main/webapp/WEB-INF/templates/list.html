@@ -1,0 +1,16 @@
+<!-- Страница выводит список всех имеющихся продуктов.
+Список проиходит в виде List<Product> из модели.
+Добавление просходит в соответствующем контроллере.
+ Вывод в цикле, т.е. перебором по List. Выводит только имя (title) продукта.
+ -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List Products</title>
+</head>
+<body>
+    <h1>All Products</h1>
+    <p th:each="product : ${products}" th:text ="${product.title}"/>
+</body>
+</html>
