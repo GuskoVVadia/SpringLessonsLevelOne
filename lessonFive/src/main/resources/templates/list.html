@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{menu :: #navigate_menu}"></div>
+<table border="1" align="center">
+    <tr>
+        <td>id</td>
+        <td>Title</td>
+        <td>Cost</td>
+    </tr>
+    <tr th:each="product : ${productsList}">
+        <td th:text="${product.id}">Id</td>
+        <td th:text="${product.title}">Title</td>
+        <td th:text="${product.cost}">Cost</td>
+    </tr>
+</table>
+</body>
+</html>
