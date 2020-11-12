@@ -1,7 +1,7 @@
-package lessonPack.controllers;
+package org.example.lessonFive.controller;
 
-import lessonPack.domain.Product;
-import lessonPack.service.ProductServiceEmpl;
+import org.example.lessonFive.domain.Product;
+import org.example.lessonFive.service.ProductServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +12,15 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductServiceEmpl serviceEmpl;
+    private final ProductServiceImpl productServiceEmpl;
 
-    public ProductController(ProductServiceEmpl productServiceEmpl) {
-        this.serviceEmpl = productServiceEmpl;
+    public ProductController(ProductServiceImpl productServiceEmpl) {
+        this.productServiceEmpl = productServiceEmpl;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
-        model.addAttribute("productsList", serviceEmpl.getAll());
+        model.addAttribute("productsList", productServiceEmpl.getAll());
         return "list";
     }
 
@@ -32,7 +32,7 @@ public class ProductController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String addNewProduct(Product product){
-        serviceEmpl.save(product);
+        productServiceEmpl.save(product);
         return "redirect:/products";
     }
 
@@ -45,7 +45,7 @@ public class ProductController {
     public String productsByPrice(Model model,
                                   @RequestParam(name="max") Double priceFrom,
                                   @RequestParam(name="min") Double priceTo){
-        List<Product> products = serviceEmpl.getByCost(priceFrom, priceTo);
+        List<Product> products = productServiceEmpl.getByPrice(priceFrom, priceTo);
         model.addAttribute("productsList", products);
         return "list";
     }

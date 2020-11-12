@@ -1,4 +1,4 @@
-package lessonPack.domain;
+package org.example.lessonFive.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
