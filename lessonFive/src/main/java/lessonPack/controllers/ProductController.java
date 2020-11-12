@@ -1,7 +1,7 @@
 package lessonPack.controllers;
 
 import lessonPack.domain.Product;
-import lessonPack.service.ProductService;
+import lessonPack.service.ProductServiceEmpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +12,15 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductServiceEmpl serviceEmpl;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController(ProductServiceEmpl productServiceEmpl) {
+        this.serviceEmpl = productServiceEmpl;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
-        model.addAttribute("productsList", productService.getAll());
+        model.addAttribute("productsList", serviceEmpl.getAll());
         return "list";
     }
 
@@ -32,7 +32,7 @@ public class ProductController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String addNewProduct(Product product){
-        productService.save(product);
+        serviceEmpl.save(product);
         return "redirect:/products";
     }
 
@@ -45,7 +45,7 @@ public class ProductController {
     public String productsByPrice(Model model,
                                   @RequestParam(name="max") Double priceFrom,
                                   @RequestParam(name="min") Double priceTo){
-        List<Product> products = productService.getByCost(priceFrom, priceTo);
+        List<Product> products = serviceEmpl.getByCost(priceFrom, priceTo);
         model.addAttribute("productsList", products);
         return "list";
     }
