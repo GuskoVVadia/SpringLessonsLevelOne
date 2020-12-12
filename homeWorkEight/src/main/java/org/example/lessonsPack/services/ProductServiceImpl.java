@@ -4,7 +4,9 @@ import org.example.lessonsPack.dao.ProductDao;
 import org.example.lessonsPack.domain.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -31,9 +33,34 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product update(Product product) {
-        System.out.println("Замена продукта: " + product.toString());
-        return save(product);
+    public Product update(Product firstProduct, Product innerProduct) {
+        System.out.println("замена продуктов " + firstProduct.getTitle() + ", " + innerProduct.getTitle());
+        System.out.println(firstProduct.toString());
+        System.out.println(innerProduct.toString());
+        if (firstProduct != null) {
+            if (!innerProduct.getTitle().equals("")) {
+                firstProduct.setTitle(innerProduct.getTitle());
+            }
+            if (innerProduct.getPrice() != null) {
+                firstProduct.setPrice(innerProduct.getPrice());
+            }
+            return save(firstProduct);
+        } else {
+            return save(innerProduct);
+        }
+    }
+
+    @Override
+    public Product getProductByTitle(String title) {
+        Product finderProduct;
+        try {
+            finderProduct = this.productDao.getProductByTitle(title);
+
+        } catch (Exception e){
+            System.err.println("Error find product by name: try -> catch");
+            finderProduct = null;
+        }
+        return finderProduct;
     }
 
     @Override
