@@ -60,7 +60,6 @@ public class MainController {
 
     @GetMapping("/form-edit-product")
     public String editFormProductGet(Model model){
-        System.out.println("this is form edit");
         model.addAttribute("product", new Product());
         model.addAttribute("finderProduct", finderProduct);
         return "form-edit-product";
