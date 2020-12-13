@@ -3,6 +3,7 @@ package org.example.lessonsPack.domain;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Client {
@@ -16,23 +17,8 @@ public class Client {
 
     private boolean enable;
 
-    public Client() {
-    }
-
-    public Client(String name, String password, boolean enable, List<Authorities> authorities) {
-        this.name = name;
-        this.password = password;
-        this.enable = enable;
-        this.authorities = authorities;
-    }
-
-    @ManyToMany
-    @JoinTable(
-            name = "client_authorities",
-            joinColumns = @JoinColumn(name = "client_id"),
-            inverseJoinColumns = @JoinColumn(name = "authorities_id")
-    )
-    private List<Authorities> authorities;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
 
     public Long getId() {
         return Id;
@@ -66,39 +52,11 @@ public class Client {
         this.enable = enable;
     }
 
-    public List<Authorities> getAuthorities() {
-        return authorities;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setAuthorities(List<Authorities> authorities) {
-        this.authorities = authorities;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return enable == client.enable &&
-                Id.equals(client.Id) &&
-                name.equals(client.name) &&
-                password.equals(client.password) &&
-                authorities.equals(client.authorities);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id, name, password, enable, authorities);
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "Id=" + Id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", enable=" + enable +
-                ", authorities=" + authorities +
-                '}';
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

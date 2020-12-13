@@ -3,15 +3,14 @@ package org.example.lessonsPack.component;
 import org.example.lessonsPack.dao.AuthoritiesDao;
 import org.example.lessonsPack.dao.ClientDao;
 import org.example.lessonsPack.dao.ProductDao;
-import org.example.lessonsPack.domain.Authorities;
+import org.example.lessonsPack.domain.Role;
 import org.example.lessonsPack.domain.Client;
 import org.example.lessonsPack.domain.Product;
-import org.example.lessonsPack.services.ClientServiceImp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -39,32 +38,32 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("init user/roles");
 
-        Authorities userRole = new Authorities();
-        userRole.setRole("user");
+        Role userRole = new Role();
+        userRole.setName("user");
 
-        Authorities adminRole = new Authorities();
-        adminRole.setRole("admin");
+        Role adminRole = new Role();
+        adminRole.setName("admin");
 
         Client user1 = new Client();
         user1.setName("user");
         user1.setEnable(true);
         user1.setPassword("123");
         user1 = clientDao.save(user1);
-        user1.setAuthorities(Arrays.asList(userRole));
+        user1.setRoles(Arrays.asList(userRole));
 
         Client user2 = new Client();
         user2.setName("manager");
         user2.setEnable(true);
         user2.setPassword("123");
         user2 = clientDao.save(user2);
-        user2.setAuthorities(Arrays.asList(userRole));
+        user2.setRoles(Arrays.asList(userRole));
 
         Client admin = new Client();
         admin.setName("admin");
         admin.setEnable(true);
         admin.setPassword("123");
         admin = clientDao.save(admin);
-        admin.setAuthorities(Arrays.asList(userRole, adminRole));
+        admin.setRoles(Arrays.asList(userRole, adminRole));
 
         userRole.setClients(Arrays.asList(user1, user2, admin));
         adminRole.setClients(Arrays.asList(admin));
