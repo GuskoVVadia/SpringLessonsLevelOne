@@ -34,7 +34,6 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product update(Product firstProduct, Product innerProduct) {
-        System.out.println("замена продуктов " + firstProduct.getTitle() + ", " + innerProduct.getTitle());
         System.out.println(firstProduct.toString());
         System.out.println(innerProduct.toString());
         if (firstProduct != null) {
