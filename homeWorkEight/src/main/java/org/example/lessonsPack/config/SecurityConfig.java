@@ -1,5 +1,6 @@
 package org.example.lessonsPack.config;
 
+import org.example.lessonsPack.domain.Role;
 import org.example.lessonsPack.services.ClientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private ClientServiceImp clientService;
@@ -42,20 +43,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .antMatchers("/").hasAnyRole("user")
-                    .antMatchers("/finder-product-by-title").hasAnyRole("admin")
-                    .antMatchers("/form-edit-product").hasAnyRole("admin")
+//                .antMatchers("/").permitAll()
+                .antMatchers("/products/list").hasAuthority("user")
+                .antMatchers("/products//new").hasAuthority("admin")
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                    .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/auth")
-                .permitAll()
+                    .permitAll()
                 .and()
                     .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
                     .invalidateHttpSession(true)
                 .and()
                     .csrf().disable();
-
     }
 }

@@ -15,8 +15,6 @@ public class Client {
 
     private String password;
 
-    private boolean enable;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
@@ -42,14 +40,6 @@ public class Client {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
     }
 
     public List<Role> getRoles() {
