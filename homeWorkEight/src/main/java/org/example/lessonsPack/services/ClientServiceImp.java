@@ -47,14 +47,7 @@ public class ClientServiceImp implements UserDetailsService {
         if (client == null){
             throw new UsernameNotFoundException("invalid");
         }
-        System.out.println(client.getRoles());
         return new User(client.getName(), client.getPassword(), client.getRoles());
     }
 
-//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> authorities){
-//        System.out.println("authorities.toString() = " + authorities.toString());
-//        return authorities.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-////        return authorities.stream().map(Authorities::getRole).collect(Collectors.toList());
-//
-//    }
 }

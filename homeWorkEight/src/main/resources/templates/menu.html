@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,12 +11,22 @@
     <div sec:authorize="isAuthenticated()">
         Authenticated username:
         <div sec:authentication="principal.username"></div>
+        <div sec:authentication="principal.authorities"></div>
     </div>
 
     <ul>
         <li><a th:href="@{/}">index</a></li>
         <li><a th:href="@{/products/list}">list</a></li>
-        <li><a th:href="@{/products/new}">new</a></li>
+
+<!--        <div sec:authorize="hasRole('admin)">-->
+        <div sec:authorize="hasRole('ROLE_ADMIN')">Text visible to user.</div>
+
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li><a th:href="@{/products/new}">new</a> </li>
+            </sec:authorize>
+
+
+
         <li><a th:href="@{/products/finder-product-by-title}">edit products</a></li>
         <li>
             <div sec:authorize="isAuthenticated()">
@@ -28,6 +39,7 @@
         <a th:href="@{/login}">Login</a><br>
     </div>
 
+<!--    <th:if="${authorization.expression('hasRole("admin")')}"></th>-->
 
 </div>
 

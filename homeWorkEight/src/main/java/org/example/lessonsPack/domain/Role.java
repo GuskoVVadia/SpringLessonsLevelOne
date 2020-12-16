@@ -31,7 +31,7 @@ public class Role implements GrantedAuthority {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = "ROLE_" + name.toUpperCase();
     }
 
     public List<Client> getClients() {
@@ -44,6 +44,11 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
         return name;
     }
 }
