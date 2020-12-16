@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="navigate_menu">
+        <div sec:authorize="isAuthenticated()">
+            Authenticated username: <div sec:authentication="principal.username"></div>
+        </div>
+
+        <ul>
+            <li><a th:href="@{/}">index</a></li>
+            <li><a th:href="@{/products/list}">list</a></li>
+
+            <div sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')">
+                <li><a th:href="@{/products/new}">new</a> </li>
+                <li><a th:href="@{/products/finder-product-by-title}">edit products</a></li>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <li><a th:href="@{/user/users-list}">user list</a></li>
+            </div>
+
+            <li>
+                <div sec:authorize="isAuthenticated()">
+                    <a th:href="@{/logout}">logout</a><br>
+                </div>
+            </li>
+        </ul>
+
+        <div sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Login</a><br>
+        </div>
+
+    </div>
+</body>
+</html>
