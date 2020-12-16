@@ -44,6 +44,9 @@ public class DataLoader implements CommandLineRunner {
         Role adminRole = new Role();
         adminRole.setName("admin");
 
+        Role managerRole = new Role();
+        managerRole.setName("manager");
+
         Client user1 = new Client();
         user1.setName("user");
         user1.setPassword("123");
@@ -54,19 +57,20 @@ public class DataLoader implements CommandLineRunner {
         user2.setName("manager");
         user2.setPassword("123");
         user2 = clientDao.save(user2);
-        user2.setRoles(Arrays.asList(userRole));
+        user2.setRoles(Arrays.asList(userRole, managerRole));
 
         Client admin = new Client();
         admin.setName("admin");
         admin.setPassword("123");
         admin = clientDao.save(admin);
-        admin.setRoles(Arrays.asList(userRole, adminRole));
+        admin.setRoles(Arrays.asList(userRole, managerRole, adminRole));
 
-        userRole.setClients(Arrays.asList(user1, user2, admin));
-        adminRole.setClients(Arrays.asList(admin));
+//        userRole.setClients(Arrays.asList(user1, user2, admin));
+//        adminRole.setClients(Arrays.asList(admin));
 
         userRole = authoritiesDao.save(userRole);
         adminRole = authoritiesDao.save(adminRole);
+        managerRole = authoritiesDao.save(managerRole);
 
         clientDao.save(user1);
         clientDao.save(user2);
@@ -74,6 +78,7 @@ public class DataLoader implements CommandLineRunner {
 
         authoritiesDao.save(userRole);
         authoritiesDao.save(adminRole);
+        authoritiesDao.save(managerRole);
 
         System.out.println("end init method");
     }

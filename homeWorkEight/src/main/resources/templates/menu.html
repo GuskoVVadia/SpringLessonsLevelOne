@@ -18,16 +18,11 @@
         <li><a th:href="@{/}">index</a></li>
         <li><a th:href="@{/products/list}">list</a></li>
 
-<!--        <div sec:authorize="hasRole('admin)">-->
-        <div sec:authorize="hasRole('ROLE_ADMIN')">Text visible to user.</div>
-
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <div sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')">
             <li><a th:href="@{/products/new}">new</a> </li>
-            </sec:authorize>
+            <li><a th:href="@{/products/finder-product-by-title}">edit products</a></li>
+        </div>
 
-
-
-        <li><a th:href="@{/products/finder-product-by-title}">edit products</a></li>
         <li>
             <div sec:authorize="isAuthenticated()">
                 <a th:href="@{/logout}">logout</a><br>
@@ -38,8 +33,6 @@
     <div sec:authorize="!isAuthenticated()">
         <a th:href="@{/login}">Login</a><br>
     </div>
-
-<!--    <th:if="${authorization.expression('hasRole("admin")')}"></th>-->
 
 </div>
 
