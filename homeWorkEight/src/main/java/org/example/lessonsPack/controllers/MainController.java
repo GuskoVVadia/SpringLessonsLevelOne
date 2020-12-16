@@ -61,6 +61,9 @@ public class MainController {
     @GetMapping("/form-edit-product")
     public String editFormProductGet(Model model){
         model.addAttribute("product", new Product());
+        if (finderProduct == null){
+            finderProduct = new Product();
+        }
         model.addAttribute("finderProduct", finderProduct);
         return "form-edit-product";
     }

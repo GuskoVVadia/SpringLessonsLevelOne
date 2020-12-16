@@ -65,9 +65,6 @@ public class DataLoader implements CommandLineRunner {
         admin = clientDao.save(admin);
         admin.setRoles(Arrays.asList(userRole, managerRole, adminRole));
 
-//        userRole.setClients(Arrays.asList(user1, user2, admin));
-//        adminRole.setClients(Arrays.asList(admin));
-
         userRole = authoritiesDao.save(userRole);
         adminRole = authoritiesDao.save(adminRole);
         managerRole = authoritiesDao.save(managerRole);

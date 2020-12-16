@@ -3,7 +3,6 @@ package org.example.lessonsPack.domain;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Client {
@@ -48,5 +47,31 @@ public class Client {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Id.equals(client.Id) &&
+                name.equals(client.name) &&
+                password.equals(client.password) &&
+                roles.equals(client.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, name, password, roles);
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

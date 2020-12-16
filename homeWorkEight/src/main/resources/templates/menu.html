@@ -6,35 +6,35 @@
     <title>Title</title>
 </head>
 <body>
-
-<div id="navigate_menu">
-    <div sec:authorize="isAuthenticated()">
-        Authenticated username:
-        <div sec:authentication="principal.username"></div>
-        <div sec:authentication="principal.authorities"></div>
-    </div>
-
-    <ul>
-        <li><a th:href="@{/}">index</a></li>
-        <li><a th:href="@{/products/list}">list</a></li>
-
-        <div sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')">
-            <li><a th:href="@{/products/new}">new</a> </li>
-            <li><a th:href="@{/products/finder-product-by-title}">edit products</a></li>
+    <div id="navigate_menu">
+        <div sec:authorize="isAuthenticated()">
+            Authenticated username: <div sec:authentication="principal.username"></div>
         </div>
 
-        <li>
-            <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/logout}">logout</a><br>
+        <ul>
+            <li><a th:href="@{/}">index</a></li>
+            <li><a th:href="@{/products/list}">list</a></li>
+
+            <div sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')">
+                <li><a th:href="@{/products/new}">new</a> </li>
+                <li><a th:href="@{/products/finder-product-by-title}">edit products</a></li>
             </div>
-        </li>
-    </ul>
 
-    <div sec:authorize="!isAuthenticated()">
-        <a th:href="@{/login}">Login</a><br>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <li><a th:href="@{/user/users-list}">user list</a></li>
+            </div>
+
+            <li>
+                <div sec:authorize="isAuthenticated()">
+                    <a th:href="@{/logout}">logout</a><br>
+                </div>
+            </li>
+        </ul>
+
+        <div sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Login</a><br>
+        </div>
+
     </div>
-
-</div>
-
 </body>
 </html>
